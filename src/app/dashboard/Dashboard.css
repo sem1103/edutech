@@ -1,0 +1,92 @@
+main {
+	display: flex;
+	flex-grow: 1;
+	overflow: hidden;
+	background-color: var(--primaryColor);
+}
+
+main>div {
+	background: var(--primaryBg);
+	display: flex;
+}
+
+#main {
+	flex: 1;
+	padding: clamp(20px, 3vw, 40px);
+	overflow: auto;
+
+	& h1 {
+		font: 700 clamp(22px, 3vw, 30px) Nunito;
+		color: #282828;
+	}
+}
+
+.main__menu span,
+.main__menu a {
+	color: #9fa6bc;
+	font-size: 16px;
+
+}
+
+.main__menu .ant-collapse-content-box {
+	padding: 10px 0 10px 15px !important;
+}
+
+.main__menu .ant-collapse-content-box>a {
+	display: flex;
+	align-items: center;
+	font-size: 14px;
+	margin: 0 0 10px 0;
+}
+
+.main__menu .ant-collapse-header,
+.main__menu .ant-collapse-expand-icon {
+	padding: 0 !important;
+}
+
+
+
+.main__container {
+	max-width: 1920px;
+	margin: 0 auto;
+	width: 100%;
+}
+
+.profile {
+	position: relative;
+	padding: 5px 0;
+	margin: 0 0 0 10px;
+}
+
+.profile a {
+	white-space: nowrap;
+}
+
+.ant-dropdown-menu-item{
+	width: 100%;
+}
+
+.profile__menu .ant-dropdown-menu-item:first-of-type:hover, .profile__menu .ant-dropdown-menu-item:last-of-type:hover{
+	cursor: default;
+	background: #fff;
+}
+
+
+.submit__btn{
+	background-color: #3874ff;
+	border: 0;
+	outline: 0;
+	color: #fff;
+	padding: 10px 25px;
+	border-radius: 9px;
+	cursor: pointer;
+	font-size: 14px;
+	font-weight: 700;
+	transition: all .4s ease-in-out;
+	flex-basis: 100%;
+	margin: 0 10px 0 0;
+	&:hover, &:focus{
+	  box-shadow: 0 3px 10px 3px #cbcbcb;
+	  transform: translateY(-3px);
+	}
+}
