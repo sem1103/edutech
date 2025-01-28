@@ -74,7 +74,7 @@
 	& label{
 		width: calc((100% - 20px) / 2);
 	}
-	& input, & .passport__id, textarea{
+	& input, & .passport__id, & textarea{
 		display: block;
 		width: 100%;
 		padding: 8px 12px;
