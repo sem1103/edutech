@@ -21,7 +21,23 @@
 
 	
 }
-
+.title{
+	display: flex;
+	align-items: center;
+}
+.copy__button{
+	background-color: #282828;
+	display: flex;
+	align-items: center;
+	padding: 4px;
+	border-radius: 6px;
+	margin: 0 0 0 8px;
+	transition: all .4s ease-in-out;
+	&:hover{
+		box-shadow: 0 0 5px #222;
+		transform: translateY(-2px);
+	}
+}
 .search__bar::after{
 	content: '';
 	position: absolute;
@@ -260,3 +276,5 @@
 
   
   /*----new__member__form-----END---*/
+
+

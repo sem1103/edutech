@@ -7,9 +7,9 @@ const apiUrl = process.env.NEXT_PUBLIC_API_URL;
 
 const useDataStore = create((set, get) => ({
 	users: [],
-	entity : [],
+	entity: [],
 	registeredStudents: false,
-	userDetail : {},
+	userDetail: {},
 	fetchUsers: async (role) => {
 		const res = await fetch(`${apiUrl}users/?user_type=${role}`, {
 			method: 'GET',
@@ -38,7 +38,7 @@ const useDataStore = create((set, get) => ({
 
 		}
 	},
-	fetchEntity : async (entity) => {
+	fetchEntity: async (entity) => {
 		const res = await fetch(`${apiUrl}${entity}/`, {
 			method: 'GET',
 			headers: {
@@ -49,9 +49,9 @@ const useDataStore = create((set, get) => ({
 
 		console.log(res);
 
-		set(({ entity: res.results}));
+		set(({ entity: res.results }));
 	},
-	fetchRegisteredList : async () => {
+	fetchRegisteredList: async () => {
 		const res = await fetch(`${apiUrl}registers/`, {
 			method: 'GET',
 			headers: {
@@ -61,9 +61,9 @@ const useDataStore = create((set, get) => ({
 
 		set(({ registeredStudents: res }));
 
-		
+
 	},
-	fetchUserDetail : async(id) => {
+	fetchUserDetail: async (id) => {
 		const res = await fetch(`${apiUrl}users/${id}/`, {
 			method: 'GET',
 			headers: {
@@ -72,6 +72,39 @@ const useDataStore = create((set, get) => ({
 		}).then(res => res.json())
 
 		set(({ userDetail: res }));
+	},
+	changeUserData: async (data, id) => {
+		try {
+			const res = await fetch(`${apiUrl}users/${id}/`, {
+				method: 'PATCH',
+				headers: {
+					'Content-Type': 'application/json',
+					'Authorization': `Bearer ${Cookies?.get('userToken')}`
+				},
+				body: JSON.stringify(data)
+			})
+
+			if (res.ok) get().fetchUserDetail(id)
+			return res
+		} catch (error) {
+			console.log(error);
+
+		}
+	},
+	changePass: async (token, oldPass, newPass) => {
+		const res = await fetch(`${apiUrl}change-password/`, {
+			method: 'PATCH',
+			headers: {
+				'Content-Type': 'application/json',
+				'Authorization': `Bearer ${token}`
+			},
+			body: JSON.stringify({
+				old_password: oldPass,
+				new_password: newPass
+			})
+		})
+
+		return res
 	}
 }))
 

@@ -74,6 +74,7 @@
 	& label{
 		width: calc((100% - 20px) / 2);
 	}
+	
 	& input, & .passport__id, & textarea{
 		display: block;
 		width: 100%;
@@ -117,3 +118,17 @@
 	font-size: 16px;
 	align-self: flex-end;
 }
+
+
+.change__pass label div{
+	position: relative;
+	& button{
+		position: absolute;
+		top: 50%;
+		right: 10px;
+		transform: translateY(-50%);
+		padding: 0;
+		height: 18px;
+	}
+}
+

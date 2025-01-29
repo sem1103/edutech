@@ -128,6 +128,9 @@ export default function PeopleList() {
 						''
 					}
 				</h1>
+				
+				
+				
 
 				<div className={s.tools}>
 					<div className={s.search__bar}>

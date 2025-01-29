@@ -3,6 +3,11 @@
 import { useEffect, useState } from 'react';
 import s from './Registration.module.css';
 import useDataStore from '../../../../store/dataStore';
+import 'react-tooltip/dist/react-tooltip.css'
+import { Tooltip } from 'react-tooltip'
+import { usePathname, useRouter } from 'next/navigation';
+
+
 
 
 export default function Registration() {
@@ -10,6 +15,10 @@ export default function Registration() {
 	const [selectedEntity, setSelectedEntity] = useState([]);
 	const [selectedAll, setSelectedAll] = useState(false)
 	const [pageInfo, setPageInfo] = useState(null);
+	const [isCopy, setIsCopy] = useState(false)
+
+
+
 
 
 	const selectUserHandler = (id) => {
@@ -50,13 +59,63 @@ export default function Registration() {
 
 	return (
 		<section id='main'>
-			<h1>
-				{pageInfo ?
-					pageInfo?.label
-					:
-					''
-				}
-			</h1>
+			<div className={s.title}>
+				<h1>
+					{pageInfo ?
+						pageInfo?.label
+						:
+						''
+					}
+				</h1>
+
+				<button
+					disabled={isCopy}
+					onClick={() => {
+						navigator.clipboard.writeText(`${window.location.origin}/registration`);
+						setIsCopy(true);
+						setTimeout(() => {
+							setIsCopy(false);
+
+						}, 2000);
+					}}
+					className={s.copy__button}
+					data-tooltip-id='copy__tooltip'
+					data-tooltip-content={isCopy ? 'Kopyalandı!' : 'Qeydiyyat linkini kopyalayın!'}
+					data-tooltip-place='right'
+				>
+					{
+						isCopy ?
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								xmlSpace="preserve"
+								width="16"
+								viewBox="0 0 24 24"
+							>
+								<path
+									fill="#ccc"
+									d="M9.707 19.121a.997.997 0 0 1-1.414 0l-5.646-5.647a1.5 1.5 0 0 1 0-2.121l.707-.707a1.5 1.5 0 0 1 2.121 0L9 14.171l9.525-9.525a1.5 1.5 0 0 1 2.121 0l.707.707a1.5 1.5 0 0 1 0 2.121z"
+									data-original="#000000"
+								></path>
+							</svg>
+							:
+							<svg
+								xmlns="http://www.w3.org/2000/svg"
+								xmlSpace="preserve"
+								width="16"
+								viewBox="0 0 6.35 6.35"
+							>
+								<path
+									fill="#ccc"
+									d="M2.43.265a.58.58 0 0 0-.573.53h-.328a.74.74 0 0 0-.735.734v3.822a.74.74 0 0 0 .735.734H4.82a.74.74 0 0 0 .735-.734V1.529A.74.74 0 0 0 4.82.794h-.328a.58.58 0 0 0-.573-.53zm0 .529h1.49q.049 0 .049.049v.431q0 .048-.049.049H2.43q-.049 0-.05-.049V.843q.001-.049.05-.05zm-.901.53h.328a.58.58 0 0 0 .573.528h1.49a.58.58 0 0 0 .573-.529h.328a.2.2 0 0 1 .206.206v3.822a.2.2 0 0 1-.206.205H1.53a.2.2 0 0 1-.206-.205V1.529a.2.2 0 0 1 .206-.206z"
+								></path>
+							</svg>
+					}
+
+
+
+				</button>
+				<Tooltip id='copy__tooltip' />
+			</div>
 
 			<div className={s.tools}>
 				<div className={s.search__bar}>
@@ -156,7 +215,7 @@ export default function Registration() {
 															</label>
 														</div>
 													</td>
-													
+
 
 													<td className={s.user__name}>
 														<div>

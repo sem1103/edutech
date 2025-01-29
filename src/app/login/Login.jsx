@@ -8,10 +8,12 @@ import Link from 'next/link';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import userStore from '../../../store/userStore';
+import useDataStore from '../../../store/dataStore';
 
 
 export default function Login({ apiUrl }) {
     const { login } = userStore();
+    const {changePass} = useDataStore()
     const router = useRouter();
     const [showResetModal, setShowResetModal] = useState(false);
     const [sessionToken, setSessionToken] = useState('');
@@ -55,10 +57,6 @@ export default function Login({ apiUrl }) {
 
 
             if (data.ok) {
-
-
-
-                console.log(resp);
                 if (resp.user.first_time_login) {
                     setSessionToken(resp.access)
                     SetFirstLoginModal(!firsLoginModal);
@@ -100,17 +98,7 @@ export default function Login({ apiUrl }) {
         const toastId = toast.loading('Sorgu göndərildi...')
 
         try {
-            const res = await fetch(`${apiUrl}change-password/`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${sessionToken}`
-                },
-                body : JSON.stringify({
-                    old_password : oldPass,
-                    new_password : data.newPass
-                })
-            })
+            const res = await changePass(sessionToken, oldPass, data.newPass);
 
             if(res.ok){
                 toast.update(toastId, {
